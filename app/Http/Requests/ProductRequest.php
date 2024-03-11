@@ -12,7 +12,7 @@ class ProductRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return Auth::check();
+        return Auth::check() && Auth::user()->roles == 'ADMIN';
     }
 
     /**
@@ -24,6 +24,7 @@ class ProductRequest extends FormRequest
     {
         return [
             'name' => 'required|max:255',
+            'category' => 'required|in:Living Room,Bedroom,Children Room,Decoration',
             'price' => 'required|integer',
             'description' => 'required',
         ];

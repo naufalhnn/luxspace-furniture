@@ -33,7 +33,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::middleware(['admin'])->group(function () {
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
         Route::resource('products', ProductController::class);
-        Route::resource('products.gallery', ProductGalleryController::class)->shallow()->only(['index', 'create', 'store', 'destroy']);
+        Route::resource('products.gallery', ProductGalleryController::class)->only(['index', 'create', 'store', 'destroy']);
         Route::resource('transaction', \App\Http\Controllers\TransactionController::class)->only(['index', 'show', 'edit', 'update']);
         Route::resource('user', UserController::class);
     });

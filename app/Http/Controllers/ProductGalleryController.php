@@ -16,31 +16,10 @@ class ProductGalleryController extends Controller
      */
     public function index(Product $product, Request $request)
     {
-        if ($request->ajax()) {
-            
-            $query = ProductGallery::where('products_id', $product->id);
-            return DataTables::eloquent($query)
-                ->addColumn('action', function ($item) {
-                    return '
-                        <form action="' . route('gallery.destroy', $item->id) . '" class="inline-block" method="POST">
-                        <button class="bg-red-500 text-white rounded-md px-2 py-1 mx-2">
-                        Hapus
-                        </button>
-                       ' . method_field('delete') . csrf_field() . '
-                       </form>
-                    ';
-                })
-                ->editColumn('url', function ($item) {
-                    return '<img style="max-width: 150px" src="' . Storage::url($item->url) . '">';
-                })
-                ->editColumn('is_featured', function ($item) {
-                    return $item->is_featured ? 'YES' : 'NO';
-                })
-                ->rawColumns(['action', 'url'])
-                ->toJson();
-        }
 
-        return view('pages.dashboard.gallery.index', compact('product'));
+        $galleries = ProductGallery::where('products_id', $product->id)->get();
+
+        return view('pages.dashboard.gallery.index', compact('product', 'galleries'));
     }
 
     /**
@@ -60,7 +39,7 @@ class ProductGalleryController extends Controller
 
         if ($request->hasFile('files')) {
             foreach ($files as $file) {
-                $path = $file->store('public/gallery');
+                $path = $file->store('gallery', 'public');
 
                 ProductGallery::create([
                     'products_id' => $product->id,
@@ -98,8 +77,10 @@ class ProductGalleryController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(ProductGallery $gallery)
+    public function destroy($id)
     {
+        $gallery = ProductGallery::findOrFail($id);
+
         $gallery->delete();
 
         return redirect()->route('products.gallery.index', $gallery->products_id);

@@ -1,11 +1,11 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            Product &raquo; {{ $product->name }} &raquo; Gallery
-        </h2>
-    </x-slot>
+		<x-slot name="header">
+				<h2 class="text-xl font-semibold leading-tight text-gray-800">
+						Product &raquo; {{ $product->name }} &raquo; Gallery
+				</h2>
+		</x-slot>
 
-    <x-slot name="script">
+		{{-- <x-slot name="script">
         <script type="text/javascript">
             // ajax datatables
             $(document).ready(function () {
@@ -28,31 +28,49 @@
                 });
             });
         </script>
-    </x-slot>
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="mb-10">
-                <a href="{{ route('products.gallery.create', $product->id) }}"
-                   class="bg-pink-500 hover:bg-pink-700 transition ease-in-out text-white font-bold py-2 px-4 rounded shadow-lg">+
-                    Upload Foto</a>
-            </div>
-            <div class="shadow overflow-hidden sm-rounded-md">
-                <div class="px-4 py-5 bg-white sm:p-6">
-                    <table id="crudTable">
-                        <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Foto</th>
-                            <th>Featured</th>
-                            <th>Aksi</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
+    </x-slot> --}}
+		<div class="py-12">
+				<div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
+						<div class="mb-10">
+								<a href="{{ route('products.gallery.create', $product->id) }}"
+										class="rounded bg-pink-500 px-4 py-2 font-bold text-white shadow-lg transition ease-in-out hover:bg-pink-700">+
+										Upload Foto</a>
+						</div>
+						<div class="sm-rounded-md overflow-hidden shadow">
+								<div class="bg-white px-4 py-5 sm:p-6">
+										<table class="w-full table-auto">
+												<thead ">
+														<tr>
+																<th class="text-start">ID</th>
+																<th class="text-start">Foto</th>
+																<th class="text-start">Aksi</th>
+														</tr>
+												</thead>
+												<tbody>
+														@forelse ($galleries as $gallery)
+														<tr>
+																<td>{{ $gallery->id }}</td>
+																<td><img src="{{ Storage::url($gallery->url) }}" alt="Product-gallery" class="w-40"></td>
+																<td>
+																		<form
+																				action="{{ route('products.gallery.destroy', ['product' => $product->id, 'gallery' => $gallery->id]) }}"
+																				method="post">
+																				@csrf
+																				@method('delete')
+																				<button onclick="return confirm('{{ __('Are you sure?') }}')"
+																						class="font-bold text-red-700 transition duration-300 hover:text-red-500">{{ __('Hapus') }}</button>
+																		</form>
+																</td>
+														</tr>
+												@empty
+														<tr>
+																<td colspan="3" class="text-center">Tidak ada data</td>
+														</tr>
+														@endforelse
+														</tbody>
+										</table>
+								</div>
+						</div>
+				</div>
+		</div>
 </x-app-layout>

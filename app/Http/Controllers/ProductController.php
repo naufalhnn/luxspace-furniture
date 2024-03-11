@@ -22,14 +22,14 @@ class ProductController extends Controller
             return DataTables::eloquent($query)
                 ->addColumn('action', function ($item) {
                     return '
-                        <a href="' . route('products.gallery.index', $item->id) . '" class="bg-blue-500 text-white rounded-md px-2 py-1.5 mx-2">
+                        <a href="' . route('products.gallery.index', $item->id) . '" class="bg-blue-500 text-white rounded-md px-2 py-1.5 mx-0.5 hover:bg-blue-700 transition duration-300">
                         Galeri
                         </a>
-                        <a href="' . route('products.edit', $item->id) . '" class="bg-gray-500 text-white rounded-md px-2 py-1.5 mx-2">
+                        <a href="' . route('products.edit', $item->id) . '" class="bg-gray-500 text-white rounded-md px-2 py-1.5 mx-0.5 hover:bg-gray-700 transition duration-300">
                         Edit
                         </a>
                         <form action="' . route('products.destroy', $item->id) . '" class="inline-block" method="POST">
-                        <button class="bg-red-500 text-white rounded-md px-2 py-1 mx-2">
+                        <button class="bg-red-500 text-white rounded-md px-2 py-1 mx-0.5 hover:bg-red-700 transition duration-300">
                         Hapus
                         </button>
                        ' . method_field('delete') . csrf_field() . '
