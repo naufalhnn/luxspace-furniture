@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProductRequest;
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -18,7 +19,7 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $query = Product::query();
+            $query = Product::with(['category']);
             return DataTables::eloquent($query)
                 ->addColumn('action', function ($item) {
                     return '
@@ -36,6 +37,9 @@ class ProductController extends Controller
                        </form>
                     ';
                 })
+                ->editColumn('category_id', function ($item) {
+                    return $item->category->name;
+                })
                 ->editColumn('price', function ($item) {
                     return number_format($item->price);
                 })
@@ -51,7 +55,8 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('pages.dashboard.product.create');
+        $categories = Category::all();
+        return view('pages.dashboard.product.create', compact('categories'));
     }
 
     /**
@@ -80,7 +85,8 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        return view('pages.dashboard.product.edit', compact('product'));
+        $categories = Category::all();
+        return view('pages.dashboard.product.edit', compact('product', 'categories'));
     }
 
     /**

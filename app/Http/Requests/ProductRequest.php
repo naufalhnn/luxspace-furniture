@@ -24,7 +24,7 @@ class ProductRequest extends FormRequest
     {
         return [
             'name' => 'required|max:255',
-            'category' => 'required|in:Living Room,Bedroom,Children Room,Decoration',
+            'category_id' => 'required|integer',
             'price' => 'required|integer',
             'description' => 'required',
         ];

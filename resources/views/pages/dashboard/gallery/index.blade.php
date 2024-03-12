@@ -39,7 +39,7 @@
 						<div class="sm-rounded-md overflow-hidden shadow">
 								<div class="bg-white px-4 py-5 sm:p-6">
 										<table class="w-full table-auto">
-												<thead ">
+												<thead>
 														<tr>
 																<th class="text-start">ID</th>
 																<th class="text-start">Foto</th>
@@ -48,26 +48,24 @@
 												</thead>
 												<tbody>
 														@forelse ($galleries as $gallery)
-														<tr>
-																<td>{{ $gallery->id }}</td>
-																<td><img src="{{ Storage::url($gallery->url) }}" alt="Product-gallery" class="w-40"></td>
-																<td>
-																		<form
-																				action="{{ route('products.gallery.destroy', ['product' => $product->id, 'gallery' => $gallery->id]) }}"
-																				method="post">
-																				@csrf
-																				@method('delete')
-																				<button onclick="return confirm('{{ __('Are you sure?') }}')"
-																						class="font-bold text-red-700 transition duration-300 hover:text-red-500">{{ __('Hapus') }}</button>
-																		</form>
-																</td>
-														</tr>
-												@empty
-														<tr>
-																<td colspan="3" class="text-center">Tidak ada data</td>
-														</tr>
+																<tr>
+																		<td>{{ $gallery->id }}</td>
+																		<td><img src="{{ Storage::url($gallery->url) }}" alt="Product-gallery" class="w-40"></td>
+																		<td>
+																				<form action="{{ route('gallery.destroy', $gallery->id) }}" method="post">
+																						@csrf
+																						@method('delete')
+																						<button onclick="return confirm('{{ __('Are you sure?') }}')"
+																								class="font-bold text-red-700 transition duration-300 hover:text-red-500">{{ __('Hapus') }}</button>
+																				</form>
+																		</td>
+																</tr>
+														@empty
+																<tr>
+																		<td colspan="3" class="text-center">Tidak ada data</td>
+																</tr>
 														@endforelse
-														</tbody>
+												</tbody>
 										</table>
 								</div>
 						</div>

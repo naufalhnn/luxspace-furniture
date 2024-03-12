@@ -18,7 +18,15 @@ class FrontendController extends Controller
     public function index(Request $request)
     {
         $products = Product::with(['galleries'])->latest()->get()->take(10);
+        
         return view('pages.frontend.index', compact('products'));
+    }
+
+    public function showProducts() 
+    {
+        $products = Product::with(['galleries', 'category'])->get();
+
+        return view('pages.frontend.products', compact('products'));
     }
 
     public function details(Request $request, $slug)

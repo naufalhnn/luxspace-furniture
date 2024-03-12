@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\ProductController;
@@ -19,6 +20,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [FrontendController::class, 'index'])->name('index');
+Route::get('/products', [FrontendController::class, 'showProducts'])->name('products');
 Route::get('/details/{slug}', [FrontendController::class, 'details'])->name('details');
 
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
@@ -33,7 +35,8 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::middleware(['admin'])->group(function () {
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
         Route::resource('products', ProductController::class);
-        Route::resource('products.gallery', ProductGalleryController::class)->only(['index', 'create', 'store', 'destroy']);
+        Route::resource('category', CategoryController::class);
+        Route::resource('products.gallery', ProductGalleryController::class)->shallow()->only(['index', 'create', 'store', 'destroy']);
         Route::resource('transaction', \App\Http\Controllers\TransactionController::class)->only(['index', 'show', 'edit', 'update']);
         Route::resource('user', UserController::class);
     });

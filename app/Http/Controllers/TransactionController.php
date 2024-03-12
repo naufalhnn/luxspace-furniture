@@ -20,10 +20,10 @@ class TransactionController extends Controller
             return DataTables::eloquent($query)
                 ->addColumn('action', function ($item) {
                     return '
-                        <a href="' . route('transaction.show', $item->id) . '" class="bg-blue-500 text-white rounded-md px-2 py-1.5 mx-2">
+                        <a href="' . route('transaction.show', $item->id) . '" class="bg-blue-500 text-white rounded-md px-2 py-1.5 mx-0.5 transition duration-300 hover:bg-blue-700">
                         Show
                         </a>
-                        <a href="' . route('transaction.edit', $item->id) . '" class="bg-gray-500 text-white rounded-md px-2 py-1.5 mx-2">
+                        <a href="' . route('transaction.edit', $item->id) . '" class="bg-gray-500 text-white rounded-md px-2 py-1.5 mx-0.5 transition duration-300 hover:bg-gray-700">
                         Edit
                         </a>
                     ';

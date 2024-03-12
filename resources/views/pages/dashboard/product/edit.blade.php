@@ -38,14 +38,12 @@
 								<div class="-mx-3 mb-6 flex flex-wrap">
 										<div class="w-full px-3">
 												<label class="mb-2 block text-xs font-bold uppercase tracking-wide text-gray-700">Category</label>
-												<select name="category" id="category" class="rounded border-gray-400 bg-gray-50">
-														<option value="{{ old('category') ?? $product->category }}">{{ old('category') ?? $product->category }}
-														</option>
+												<select name="category_id" id="category_id" class="rounded border-gray-400 bg-gray-50">
+														<option value="{{ old('category_id') }}">Klik untuk ubah</option>
 														<option value="" disabled>-----</option>
-														<option value="Living Room">Living Room</option>
-														<option value="Bedroom">Bedroom</option>
-														<option value="Children Room">Children Room</option>
-														<option value="Decoration">Decoration</option>
+														@foreach ($categories as $category)
+																<option value="{{ $category->id }}">{{ $category->name }}</option>
+														@endforeach
 												</select>
 										</div>
 								</div>

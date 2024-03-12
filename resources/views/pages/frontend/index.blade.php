@@ -59,9 +59,8 @@
 										</div>
 										<div class="overlay bottom-0 left-0 top-0 flex flex-col justify-center pl-48 md:pl-72">
 												<h5 class="text-lg font-semibold">Living Room</h5>
-												<span class="">18.309 items</span>
 										</div>
-										<a href="details.html" class="stretched-link">
+										<a href="{{ route('products') }}" class="stretched-link">
 												<!-- fake children -->
 										</a>
 								</div>
@@ -73,9 +72,8 @@
 										<div
 												class="overlay bottom-0 left-0 right-0 top-0 flex flex-col justify-center pl-48 pt-0 md:bottom-auto md:items-center md:pl-0 md:pt-12">
 												<h5 class="text-lg font-semibold">Decoration</h5>
-												<span class="">77.392 items</span>
 										</div>
-										<a href="details.html" class="stretched-link">
+										<a href="{{ route('products') }}" class="stretched-link">
 												<!-- fake children -->
 										</a>
 								</div>
@@ -87,9 +85,8 @@
 										<div
 												class="overlay bottom-0 left-0 right-0 top-0 flex flex-col justify-center pl-48 pt-0 md:bottom-auto md:items-center md:pl-0 md:pt-12">
 												<h5 class="text-lg font-semibold">Bedroom</h5>
-												<span class="">22.094 items</span>
 										</div>
-										<a href="details.html" class="stretched-link">
+										<a href="{{ route('products') }}" class="stretched-link">
 												<!-- fake children -->
 										</a>
 								</div>
@@ -100,9 +97,8 @@
 										</div>
 										<div class="overlay bottom-0 left-0 top-0 flex flex-col justify-center pl-48 md:pl-72">
 												<h5 class="text-lg font-semibold">Children Room</h5>
-												<span class="">837 items</span>
 										</div>
-										<a href="details.html" class="stretched-link">
+										<a href="{{ route('products') }}" class="stretched-link">
 												<!-- fake children -->
 										</a>
 								</div>
